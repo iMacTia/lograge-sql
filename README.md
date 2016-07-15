@@ -1,6 +1,6 @@
 # Lograge::Sql
 
-[<img src="https://img.shields.io/badge/version-0.1.0-green.svg" alt="version" />](https://github.com/iMacTia/lograge-sql) [<img src="https://travis-ci.org/iMacTia/lograge-sql.svg?branch=master" alt="version" />](https://travis-ci.org/iMacTia/lograge-sql)
+[<img src="https://img.shields.io/badge/version-0.1.1-green.svg" alt="version" />](https://github.com/iMacTia/lograge-sql) [<img src="https://travis-ci.org/iMacTia/lograge-sql.svg?branch=master" alt="version" />](https://travis-ci.org/iMacTia/lograge-sql)
 
 Lograge::Sql is an extension to the famous [Lograge](https://github.com/roidrage/lograge) gem, which adds SQL queries to the Lograge Event and disable default ActiveRecord logging.
 This is extremely useful if you're using Lograge together with the ELK stack.
