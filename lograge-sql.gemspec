@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{An extension for Lograge to log SQL queries}
   spec.description   = %q{An extension for Lograge to log SQL queries}
   spec.homepage      = 'https://github.com/iMacTia/lograge-sql'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
