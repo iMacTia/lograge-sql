@@ -12,7 +12,7 @@ module Lograge
         Thread.current[:lograge_sql_queries] = nil
         {
           sql_queries: %('#{sql_queries.join("\n")}'),
-          sql_query_count: sql_queries.length
+          sql_queries_count: sql_queries.length
         }
       end
     end
