@@ -11,7 +11,7 @@ module Lograge
 
         Thread.current[:lograge_sql_queries] = nil
         {
-          sql_queries: %('#{sql_queries.join("\n")}'),
+          sql_queries: Lograge::Sql.formatter.call(sql_queries),
           sql_queries_count: sql_queries.length
         }
       end
@@ -25,7 +25,7 @@ module Lograge
       ActiveRecord::LogSubscriber.runtime += event.duration
       return if event.payload[:name] == 'SCHEMA'
       Thread.current[:lograge_sql_queries] ||= []
-      Thread.current[:lograge_sql_queries] << ("#{event.payload[:name]} (#{event.duration.to_f.round(2)}) #{event.payload[:sql]}")
+      Thread.current[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
     end
   end
 end
