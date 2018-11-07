@@ -1,4 +1,14 @@
 language: ruby
 rvm:
-  - 2.2.2
-before_install: gem install bundler -v 1.11.2
+  - 2.5
+before_install: gem install bundler -v 1.16.2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: xlc4BM+5ljo4cO2FC71KbhbVGVYd3NMxhZPat/Y37vo6b5/I01D+Z+K84azMvhIZa+O17cA56FGqT6P0XYfcjZVnYzixpyRlbffKBGNPcIFj2UklWk2BDOojezHPEQnbR2f0jE2+8jHtAb9qyoBTbTlvsW3+svd76+53TxMW1PgGF9+1xdtlEumF1q+IYRL+5TzDLk9GyQ+3RmVd9KBVvQIxxUpn4COJohmQWnv98ZzluX4I/QUt3k4o+etUINPewyg3S+VNP0u+K9HGkY3TL8OpUbCS3Syr3OydwzgpXIBlW+kWVez5/qZn3pd6oSpNEUF9Mh3NhaVsDacFSh6XgGNgww+isazyAROsledK2GsEOH0Hi6gpia/Ny5cD5TFAiGshMcUIb2K4roI3AW9kJ2e59hoC+QvPy64IybO/dhaKcxwX8F4qq3Fk/8EzQV5eOTq0Iai5aYNJaGZUqHV/X4DiMwDk/JoyQVYE+2CMF/PlZIFV4LuegDArVXYh5w3Qo9vYDfNp7Hfv0w5XgpEqAhk+Dabl+BlVhzSM/Cf28i6OVAhLURnGMNKhQEi3/4EusaM/cOQlM5QKWweAPfOwDKMFUoj9+Rtr0FfSyNzerG9dlGuzEKOlqq+XuOQ7RfDUV4+bn2PwbYo5XwMKz1Y8FWUZTz6l14miaw8Yq7U0GU8=
+  gem: lograge-sql
+  on:
+    tags: true
+    repo: iMacTia/lograge-sql
+    rvm: 2.5
+
