@@ -30,7 +30,11 @@ module Lograge
   end
 end
 
-Lograge::RequestLogSubscriber.prepend Lograge::Sql::Extension
+if defined?(Lograge::RequestLogSubscriber)
+  Lograge::RequestLogSubscriber.prepend Lograge::Sql::Extension
+else
+  Lograge::LogSubscribers::ActionController.prepend Lograge::Sql::Extension
+end
 
 ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
   Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
