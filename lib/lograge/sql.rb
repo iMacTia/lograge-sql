@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'lograge/sql/version'
 
 module Lograge
+  # Main gem module
   module Sql
-    
     class << self
-
       # Format SQL log
       attr_accessor :formatter
       # Extract information from SQL event
@@ -20,21 +21,19 @@ module Lograge
 
       # By default, the output is a concatenated string of all extracted events
       def default_formatter
-        Proc.new do |sql_queries|
+        proc do |sql_queries|
           %('#{sql_queries.join("\n")}')
         end
       end
 
-      # By default, only extract values required for the default_formatter and 
+      # By default, only extract values required for the default_formatter and
       # already convert to a string
       def default_extract_event
-        Proc.new do |event|
+        proc do |event|
           "#{event.payload[:name]} (#{event.duration.to_f.round(2)}) #{event.payload[:sql]}"
         end
       end
-
     end
-
   end
 end
 

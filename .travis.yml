@@ -1,7 +1,16 @@
 language: ruby
+cache: bundler
 rvm:
+  - 2.3
+  - 2.4
   - 2.5
-before_install: gem install bundler -v 1.16.2
+  - 2.6
+before_install:
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '~> 1.17'
+gemfile:
+  - gemfiles/lograge10.gemfile
+  - gemfiles/lograge11.gemfile
 deploy:
   provider: rubygems
   api_key:
@@ -10,5 +19,5 @@ deploy:
   on:
     tags: true
     repo: iMacTia/lograge-sql
-    rvm: 2.5
+    rvm: 2.6
 

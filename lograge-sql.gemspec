@@ -1,5 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lograge/sql/version'
 
@@ -9,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Mattia Giuffrida']
   spec.email         = ['giuffrida.mattia@gmail.com']
 
-  spec.summary       = %q{An extension for Lograge to log SQL queries}
-  spec.description   = %q{An extension for Lograge to log SQL queries}
+  spec.summary       = 'An extension for Lograge to log SQL queries'
+  spec.description   = 'An extension for Lograge to log SQL queries'
   spec.homepage      = 'https://github.com/iMacTia/lograge-sql'
   spec.license       = 'MIT'
 
@@ -19,10 +20,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'lograge', '~> 0.4'
   spec.add_runtime_dependency 'activerecord', '>= 4', '< 6.0'
+  spec.add_runtime_dependency 'lograge', '~> 0.4'
 
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-performance'
 end
