@@ -1,0 +1,20 @@
+require:
+  - rubocop-performance
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.3
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - spec/**/*.rb
+
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'

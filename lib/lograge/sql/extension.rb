@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 module Lograge
   module Sql
+    # Module used to extend Lograge
     module Extension
+      # Overrides `Lograge::RequestLogSubscriber#extract_request` do add SQL queries
       def extract_request(event, payload)
         super.merge!(extract_sql_queries)
       end
 
+      # Collects all SQL queries stored in the Thread during request processing
       def extract_sql_queries
         sql_queries = Thread.current[:lograge_sql_queries]
         return {} unless sql_queries
@@ -20,10 +25,14 @@ module Lograge
 end
 
 module Lograge
+  # Log subscriber to replace ActiveRecord's default one
   class ActiveRecordLogSubscriber < ActiveSupport::LogSubscriber
+    # Every time there's an SQL query, stores it into the Thread.
+    # They'll later be access from the RequestLogSubscriber.
     def sql(event)
       ActiveRecord::LogSubscriber.runtime += event.duration
       return if event.payload[:name] == 'SCHEMA'
+
       Thread.current[:lograge_sql_queries] ||= []
       Thread.current[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
     end
