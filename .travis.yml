@@ -1,16 +1,15 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.3
   - 2.4
   - 2.5
   - 2.6
-before_install:
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem install bundler -v '~> 1.17'
 gemfile:
   - gemfiles/lograge10.gemfile
   - gemfiles/lograge11.gemfile
+before_install:
+  - gem update --system
+  - gem install bundler
 deploy:
   provider: rubygems
   api_key:
