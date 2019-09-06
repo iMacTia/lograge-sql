@@ -10,6 +10,8 @@ module Lograge
       attr_accessor :formatter
       # Extract information from SQL event
       attr_accessor :extract_event
+      # Thread storage
+      attr_accessor :store
 
       # Initialise configuration with fallback to default values
       def setup(config)
