@@ -15,6 +15,7 @@ module Lograge
       def setup(config)
         Lograge::Sql.formatter     = config.formatter     || default_formatter
         Lograge::Sql.extract_event = config.extract_event || default_extract_event
+        Lograge::Sql.store = defined?(RequestStore.store) ? RequestStore.store : Thread.current
       end
 
       private
