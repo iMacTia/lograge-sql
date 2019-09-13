@@ -33,7 +33,7 @@ Object Load (0.42) SELECT "objects.*" FROM "objects"
 Associations Load (0.42) SELECT "associations.*" FROM "associations" WHERE "associations"."object_id" = "$1"
 ```
 
-However, having `Lograge::Formatters::Json.new`, the relevant output is 
+However, having `Lograge::Formatters::Json.new`, the relevant output is
 
 ```json
 {
@@ -60,6 +60,9 @@ Rails.application.configure do
 end
 ```
 
+#### Thread-safety
+
+[Depending on the web server in your project](https://github.com/steveklabnik/request_store#the-problem) you might benefit from improved thread-safety by adding [`request_store`](https://github.com/steveklabnik/request_store) to your Gemfile. It will be automatically picked up by `lograge-sql`.
 
 ## Contributing
 
