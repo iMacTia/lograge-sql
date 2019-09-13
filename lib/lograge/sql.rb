@@ -18,7 +18,7 @@ module Lograge
       end
 
       def store
-        defined?(RequestStore.store) ? RequestStore.store : Thread.current
+        defined?(RequestStore) ? RequestStore.store : Thread.current
       end
 
       private
