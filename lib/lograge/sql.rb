@@ -17,6 +17,10 @@ module Lograge
         Lograge::Sql.extract_event = config.extract_event || default_extract_event
       end
 
+      def store
+        defined?(RequestStore) ? RequestStore.store : Thread.current
+      end
+
       private
 
       # By default, the output is a concatenated string of all extracted events
