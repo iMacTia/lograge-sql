@@ -15,6 +15,12 @@ module Lograge
       def setup(config)
         Lograge::Sql.formatter     = config.formatter     || default_formatter
         Lograge::Sql.extract_event = config.extract_event || default_extract_event
+        # Disable existing ActiveRecord logging
+        unless config.keep_default_active_record_log
+          ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
+            Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
+          end
+        end
       end
 
       def store
