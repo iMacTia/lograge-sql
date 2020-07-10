@@ -23,6 +23,12 @@ In order to enable SQL logging in your application, you'll simply need to add th
 require 'lograge/sql/extension'
 ```
 
+By default, Lograge::Sql disables default logging on ActiveRecord. To preserve default logging, add this to your lograge initializer:
+
+```ruby
+config.lograge_sql.keep_default_active_record_log = true
+```
+
 ## Customization
 
 By default, the format is a string concatenation of the query name, the query duration and the query itself joined by `\n` newline:
