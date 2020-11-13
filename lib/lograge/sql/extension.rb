@@ -44,5 +44,3 @@ if defined?(Lograge::RequestLogSubscriber)
 else
   Lograge::LogSubscribers::ActionController.prepend Lograge::Sql::Extension
 end
-
-Lograge::ActiveRecordLogSubscriber.attach_to :active_record
