@@ -16,7 +16,7 @@ jobs:
         with:
           ruby-version: 2.7
       - name: Install dependencies
-        run: bundle install --without default development --jobs 4
+        run: bundle install --jobs 4
       - name: Rubocop
         run: bundle exec rubocop --format progress
       - name: Inch
@@ -39,6 +39,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Install dependencies
-        run: bundle install --gemfile=${{ matrix.gemfile }}  --without linting --jobs 4
+        run: bundle install --gemfile=${{ matrix.gemfile }} --jobs 4
       - name: Run tests
         run: bundle exec rake
