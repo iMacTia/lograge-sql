@@ -10,7 +10,7 @@ module Lograge
       # To ensure that configuration is not nil when initialise Lograge::Sql.setup
       config.lograge_sql = ActiveSupport::OrderedOptions.new
 
-      config.to_prepare do |app|
+      config.to_prepare do
         Lograge::Sql.setup(Rails.application.config.lograge_sql)
       end
     end
