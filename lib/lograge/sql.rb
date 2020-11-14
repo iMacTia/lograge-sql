@@ -2,6 +2,7 @@
 
 require 'lograge/sql/version'
 
+# Main Lograge module
 module Lograge
   # Main gem module
   module Sql
@@ -26,6 +27,8 @@ module Lograge
         Lograge::ActiveRecordLogSubscriber.attach_to :active_record
       end
 
+      # Gets the store, preferring RequestStore if the gem is found.
+      # @return [Hash, Thread] the RequestStore or the current Thread.
       def store
         defined?(RequestStore) ? RequestStore.store : Thread.current
       end
