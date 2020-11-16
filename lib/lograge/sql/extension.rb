@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'lograge/active_record_log_subscriber'
+
 module Lograge
   module Sql
     # Module used to extend Lograge
@@ -20,21 +22,6 @@ module Lograge
           sql_queries_count: sql_queries.length
         }
       end
-    end
-  end
-end
-
-module Lograge
-  # Log subscriber to replace ActiveRecord's default one
-  class ActiveRecordLogSubscriber < ActiveSupport::LogSubscriber
-    # Every time there's an SQL query, stores it into the Thread.
-    # They'll later be access from the RequestLogSubscriber.
-    def sql(event)
-      ActiveRecord::LogSubscriber.runtime += event.duration
-      return if event.payload[:name] == 'SCHEMA'
-
-      Lograge::Sql.store[:lograge_sql_queries] ||= []
-      Lograge::Sql.store[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
     end
   end
 end
