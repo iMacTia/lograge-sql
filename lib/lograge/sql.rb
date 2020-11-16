@@ -17,14 +17,16 @@ module Lograge
         Lograge::Sql.formatter     = config.formatter     || default_formatter
         Lograge::Sql.extract_event = config.extract_event || default_extract_event
 
-        return if config.keep_default_active_record_log
-
         # Disable existing ActiveRecord logging
-        ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
-          Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
+        unless config.keep_default_active_record_log
+          ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
+            Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
+          end
         end
 
-        Lograge::ActiveRecordLogSubscriber.attach_to :active_record
+        return unless defined?(Lograge::ActiveRecordLogSubscriber)
+
+        Lograge::ActiveRecordLogSubscriber.attach_to(:active_record)
       end
 
       # Gets the store, preferring RequestStore if the gem is found.
