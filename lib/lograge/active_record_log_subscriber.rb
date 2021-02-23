@@ -9,8 +9,13 @@ module Lograge
       ActiveRecord::LogSubscriber.runtime += event.duration
       return if event.payload[:name] == 'SCHEMA'
 
-      Lograge::Sql.store[:lograge_sql_queries] ||= []
-      Lograge::Sql.store[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
+      if Lograge::Sql.counter_only
+        Lograge::Sql.store[:lograge_sql_queries_count] ||= 0
+        Lograge::Sql.store[:lograge_sql_queries_count] += 1
+      else
+        Lograge::Sql.store[:lograge_sql_queries] ||= []
+        Lograge::Sql.store[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
+      end
     end
   end
 end
