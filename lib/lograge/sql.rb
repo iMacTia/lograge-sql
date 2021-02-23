@@ -11,11 +11,14 @@ module Lograge
       attr_accessor :formatter
       # Extract information from SQL event
       attr_accessor :extract_event
+      # Keep just a counter of SQL queries
+      attr_accessor :counter_only
 
       # Initialise configuration with fallback to default values
       def setup(config)
         Lograge::Sql.formatter     = config.formatter     || default_formatter
         Lograge::Sql.extract_event = config.extract_event || default_extract_event
+        Lograge::Sql.counter_only  = config.counter_only  || false
 
         # Disable existing ActiveRecord logging
         unless config.keep_default_active_record_log

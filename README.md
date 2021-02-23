@@ -66,6 +66,16 @@ Rails.application.configure do
 end
 ```
 
+Lograge-sql keeps an array with all sql queries in memory for the duration of request.
+You can make it more memory efficient by keeping just a query counter:
+
+```ruby
+# config/initializers/lograge.rb
+Rails.application.configure do
+  config.lograge_sql.counter_only = true
+end
+```
+
 #### Thread-safety
 
 [Depending on the web server in your project](https://github.com/steveklabnik/request_store#the-problem) you might benefit from improved thread-safety by adding [`request_store`](https://github.com/steveklabnik/request_store) to your Gemfile. It will be automatically picked up by `lograge-sql`.
