@@ -15,6 +15,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
+          bundler-cache: true
       - name: Install dependencies
         run: bundle install --jobs 4
       - name: Rubocop
@@ -27,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.4', '2.5', '2.6', '2.7' ]
+        ruby: [ '2.5', '2.6', '2.7', '3.0' ]
         gemfile:
           - gemfiles/lograge10.gemfile
           - gemfiles/lograge11.gemfile
@@ -38,6 +39,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
       - name: Install dependencies
         run: bundle install --gemfile=${{ matrix.gemfile }} --jobs 4
       - name: Run tests
