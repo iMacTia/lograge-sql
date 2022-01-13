@@ -15,9 +15,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-          bundler-cache: true
-      - name: Install dependencies
-        run: bundle install --jobs 4
+          bundler-cache: true # 'bundle install' and cache
       - name: Rubocop
         run: bundle exec rubocop --format progress
       - name: Inch
@@ -26,6 +24,8 @@ jobs:
   test:
     needs: [linting]
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     strategy:
       matrix:
         ruby: [ '2.5', '2.6', '2.7', '3.0', '3.1' ]
@@ -46,8 +46,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Install dependencies
-        run: bundle install --gemfile=${{ matrix.gemfile }} --jobs 4
+          bundler-cache: true # 'bundle install' and cache
       - name: Run tests
         run: bundle exec rake
