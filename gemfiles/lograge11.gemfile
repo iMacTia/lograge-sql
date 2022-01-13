@@ -1,7 +1,0 @@
-# frozen_string_literal: true
-
-source 'https://rubygems.org' do
-  gem 'lograge', '~> 0.11.0'
-end
-
-eval_gemfile '../Gemfile'

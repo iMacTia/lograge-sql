@@ -1,6 +1,4 @@
-/.bundle/
 /.yardoc
-/Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
@@ -8,4 +6,9 @@
 /spec/reports/
 /tmp/
 .idea
+
+## BUNDLER
 *.gem
+.bundle
+Gemfile.lock
+vendor/bundle
