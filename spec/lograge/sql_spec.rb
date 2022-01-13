@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-describe Lograge::Sql do
+RSpec.describe Lograge::Sql do
   let(:subscriber) do
     if defined?(Lograge::RequestLogSubscriber)
       Lograge::RequestLogSubscriber
