@@ -8,6 +8,6 @@ require 'delegate'
 require 'lograge'
 require 'lograge/sql'
 
-RSpec.configure do |config|
-  config.disable_monkey_patching! # rubocop:disable Style/SymbolProc
+RSpec.configure do |config| # rubocop:disable Style/SymbolProc
+  config.disable_monkey_patching!
 end
