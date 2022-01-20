@@ -9,5 +9,5 @@ require 'lograge'
 require 'lograge/sql'
 
 RSpec.configure do |config|
-  config.disable_monkey_patching!
+  config.disable_monkey_patching! # rubocop:disable Style/SymbolProc
 end
