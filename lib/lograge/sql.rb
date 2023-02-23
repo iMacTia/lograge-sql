@@ -11,11 +11,14 @@ module Lograge
       attr_accessor :formatter
       # Extract information from SQL event
       attr_accessor :extract_event
+      # Filter SQL events by duration
+      attr_accessor :limit_duration
 
       # Initialise configuration with fallback to default values
       def setup(config)
-        Lograge::Sql.formatter     = config.formatter     || default_formatter
-        Lograge::Sql.extract_event = config.extract_event || default_extract_event
+        Lograge::Sql.formatter      = config.formatter      || default_formatter
+        Lograge::Sql.extract_event  = config.extract_event  || default_extract_event
+        Lograge::Sql.limit_duration = config.limit_duration || 0
 
         # Disable existing ActiveRecord logging
         unless config.keep_default_active_record_log

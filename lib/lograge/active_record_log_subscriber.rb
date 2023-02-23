@@ -9,6 +9,10 @@ module Lograge
       ActiveRecord::LogSubscriber.runtime += event.duration
       return if event.payload[:name] == 'SCHEMA'
 
+      # Only store SQL events if `event.duration` greater than +limit_duration+ configured
+      # Do not need to check +limit_duration+ present before
+      return if event.duration.to_f.round(2) < Lograge::Sql.limit_duration.to_f
+
       Lograge::Sql.store[:lograge_sql_queries] ||= []
       Lograge::Sql.store[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
     end
