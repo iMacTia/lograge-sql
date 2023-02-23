@@ -66,6 +66,18 @@ Rails.application.configure do
 end
 ```
 
+`Lograge-sql` only stores any events by `limit_duration` condition.
+It very helpful if you want to detect `Slow SQL queries`
+
+```ruby
+# config/initializers/lograge.rb
+Rails.application.configure do
+  # Set limitted of SQL duration if you want to filter (unit: milliseconds)
+  # Defaults is zero
+  config.lograge_sql.limit_duration = 5000
+end
+```
+
 #### Thread-safety
 
 [Depending on the web server in your project](https://github.com/steveklabnik/request_store#the-problem) you might benefit from improved thread-safety by adding [`request_store`](https://github.com/steveklabnik/request_store) to your Gemfile. It will be automatically picked up by `lograge-sql`.
@@ -73,4 +85,3 @@ end
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/iMacTia/lograge-sql.
-
