@@ -21,11 +21,7 @@ module Lograge
         Lograge::Sql.min_duration_ms = config.min_duration_ms || 0
 
         # Disable existing ActiveRecord logging
-        unless config.keep_default_active_record_log
-          ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
-            Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
-          end
-        end
+        unsubscribe_log_subscribers unless config.keep_default_active_record_log
 
         return unless defined?(Lograge::ActiveRecordLogSubscriber)
 
@@ -52,6 +48,12 @@ module Lograge
       def default_extract_event
         proc do |event|
           "#{event.payload[:name]} (#{event.duration.to_f.round(2)}) #{event.payload[:sql]}"
+        end
+      end
+
+      def unsubscribe_log_subscribers
+        ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
+          Lograge.unsubscribe(:active_record, subscriber) if subscriber.is_a?(ActiveRecord::LogSubscriber)
         end
       end
     end
