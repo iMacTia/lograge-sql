@@ -66,7 +66,7 @@ Rails.application.configure do
 end
 ```
 
-`Lograge-sql` only stores any events by `limit_duration` condition.
+`Lograge-sql` only stores any events by `min_duration_ms` condition.
 It very helpful if you want to detect `Slow SQL queries`
 
 ```ruby
@@ -74,7 +74,7 @@ It very helpful if you want to detect `Slow SQL queries`
 Rails.application.configure do
   # Set limitted of SQL duration if you want to filter (unit: milliseconds)
   # Defaults is zero
-  config.lograge_sql.limit_duration = 5000
+  config.lograge_sql.min_duration_ms = 5000
 end
 ```
 
