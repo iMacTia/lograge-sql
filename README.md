@@ -29,7 +29,23 @@ By default, Lograge::Sql disables default logging on ActiveRecord. To preserve d
 config.lograge_sql.keep_default_active_record_log = true
 ```
 
-## Customization
+## Configuration
+
+### Minimum query duration threshold
+
+By default, `lograge-sql` stores all queries, but you can set a `min_duration_ms` config.
+When you do so, only queries that run for AT LEAST `min_duration_ms` milliseconds will be logged, and all others will be ignored.
+This can be really helpful if you want to detect `Slow SQL queries`.
+
+```ruby
+# config/initializers/lograge.rb
+Rails.application.configure do
+  # Defaults is zero
+  config.lograge_sql.min_duration_ms = 5000 # milliseconds
+end
+```
+
+### Output Customization
 
 By default, the format is a string concatenation of the query name, the query duration and the query itself joined by `\n` newline:
 
@@ -66,19 +82,7 @@ Rails.application.configure do
 end
 ```
 
-`Lograge-sql` only stores any events by `min_duration_ms` condition.
-It very helpful if you want to detect `Slow SQL queries`
-
-```ruby
-# config/initializers/lograge.rb
-Rails.application.configure do
-  # Set limitted of SQL duration if you want to filter (unit: milliseconds)
-  # Defaults is zero
-  config.lograge_sql.min_duration_ms = 5000
-end
-```
-
-#### Thread-safety
+### Thread-safety
 
 [Depending on the web server in your project](https://github.com/steveklabnik/request_store#the-problem) you might benefit from improved thread-safety by adding [`request_store`](https://github.com/steveklabnik/request_store) to your Gemfile. It will be automatically picked up by `lograge-sql`.
 
