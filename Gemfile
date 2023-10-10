@@ -5,6 +5,10 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in lograge-sql.gemspec
 gemspec
 
+install_if -> { ENV.fetch('RAILS_VERSION', nil) } do
+  gem 'rails', ENV.fetch('RAILS_VERSION', nil)
+end
+
 group :development do
   gem 'rspec', '~> 3.0'
   gem 'simplecov', '~> 0.12'
