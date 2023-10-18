@@ -82,7 +82,6 @@ Rails.application.configure do
 end
 ```
 
-
 ### Filtering out sensitive info in SQL logs
 By default, `lograge-sql` will log full query but if you have sensitive data that need to be filtered out, you can set `query_filter` config:
 
