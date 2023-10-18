@@ -13,12 +13,15 @@ module Lograge
       attr_accessor :extract_event
       # Filter SQL events by duration
       attr_accessor :min_duration_ms
+      # Filter SQL query
+      attr_accessor :query_filter
 
       # Initialise configuration with fallback to default values
       def setup(config)
         Lograge::Sql.formatter       = config.formatter       || default_formatter
         Lograge::Sql.extract_event   = config.extract_event   || default_extract_event
         Lograge::Sql.min_duration_ms = config.min_duration_ms || 0
+        Lograge::Sql.query_filter    = config.query_filter
 
         # Disable existing ActiveRecord logging
         unsubscribe_log_subscribers unless config.keep_default_active_record_log

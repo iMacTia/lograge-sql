@@ -55,5 +55,25 @@ RSpec.describe Lograge::ActiveRecordLogSubscriber do
         expect(Lograge::Sql.store[:lograge_sql_queries]).to be_nil
       end
     end
+
+    context 'with custom filter' do
+      let(:query_filter) { instance_double(Proc, call: {}) }
+
+      before do
+        allow(Rails).to receive_message_chain('application.config.lograge_sql.keep_default_active_record_log') { true }
+        allow(event).to receive(:payload).and_return({ sql: "foo" })
+        Lograge::Sql.query_filter = query_filter
+      end
+
+      after do
+        # reset filter after test
+        Lograge::Sql.query_filter = nil
+      end
+
+      it 'apply filter to sql payload' do
+        log_subscriber.sql(event)
+        expect(query_filter).to have_received(:call).with("foo")
+      end
+    end
   end
 end
