@@ -13,6 +13,9 @@ module Lograge
       # No need to check if +min_duration+ is present before as it defaults to 0
       return if event.duration.to_f.round(2) < Lograge::Sql.min_duration_ms.to_f
 
+      # Filtering out sensitive info in SQL query if custom query_filter is provided
+      event.payload[:sql] = Lograge::Sql.query_filter.call(event.payload[:sql]) if Lograge::Sql.query_filter
+
       Lograge::Sql.store[:lograge_sql_queries] ||= []
       Lograge::Sql.store[:lograge_sql_queries] << Lograge::Sql.extract_event.call(event)
     end

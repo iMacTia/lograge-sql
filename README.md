@@ -82,6 +82,16 @@ Rails.application.configure do
 end
 ```
 
+
+### Filtering out sensitive info in SQL logs
+By default, `lograge-sql` will log full query but if you have sensitive data that need to be filtered out, you can set `query_filter` config:
+
+```ruby
+Rails.application.configure do
+  config.lograge_sql.query_filter = ->(query) { query.gsub(/custom_regexp/, "[FILTERED]".freeze) }
+end
+```
+
 ### Thread-safety
 
 [Depending on the web server in your project](https://github.com/steveklabnik/request_store#the-problem) you might benefit from improved thread-safety by adding [`request_store`](https://github.com/steveklabnik/request_store) to your Gemfile. It will be automatically picked up by `lograge-sql`.
