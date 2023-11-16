@@ -15,13 +15,13 @@ module Lograge
 
     private
 
-    # Add the event duration to the overall ActiveRecord::LogSubscriber.runtime;
+    # Add the event duration to the overall ActiveRecord::RuntimeRegistry.sql_runtime;
     # note we don't do this when `keep_default_active_record_log` is enabled,
     # as ActiveRecord is already adding the duration.
     def increase_runtime_duration(event)
       return if Rails.application.config.lograge_sql.keep_default_active_record_log
 
-      ActiveRecord::LogSubscriber.runtime += event.duration
+      ActiveRecord::RuntimeRegistry.sql_runtime += event.duration
     end
 
     def filter_query(event)
