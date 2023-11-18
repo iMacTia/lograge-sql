@@ -21,6 +21,7 @@ module Lograge
     def increase_runtime_duration(event)
       return if Rails.application.config.lograge_sql.keep_default_active_record_log
 
+      ActiveRecord::RuntimeRegistry.sql_runtime ||= 0.0
       ActiveRecord::RuntimeRegistry.sql_runtime += event.duration
     end
 
