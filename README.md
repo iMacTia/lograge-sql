@@ -45,6 +45,20 @@ Rails.application.configure do
 end
 ```
 
+### Filtering sql queries by name
+
+You can filter out queries using the `query_name_denylist` configuration. 
+This takes an array of regular expressions to match against the query name. If the query name matches any of the regular expressions, it will be ignored. By default, `lograge-sql` ignores queries named `SCHEMA` and queries from the `SolidCable` namespace.
+If you are using Solid Cable in your project, be careful  when removing this default value as it will cause a [memory leak](https://github.com/iMacTia/lograge-sql/issues/59).
+
+```ruby
+# config/initializers/lograge.rb
+Rails.application.configure do
+  # Defaults is [/\ASCHEMA\z/, /\ASolidCable::/]
+  config.lograge_sql.query_name_denylist << /\AEXACT NAME TO IGNORE\z/
+end
+```
+
 ### Output Customization
 
 By default, the format is a string concatenation of the query name, the query duration and the query itself joined by `\n` newline:

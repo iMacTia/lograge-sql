@@ -12,6 +12,7 @@ RSpec.describe Lograge::ActiveRecordLogSubscriber do
       stub_const('ActiveRecord::RuntimeRegistry', ar_runtime_registry)
       Lograge::Sql.extract_event = proc {}
       Lograge::Sql.store.clear
+      Lograge::Sql.query_name_denylist = [/\ASCHEMA\z/, /\ASolidCable::/]
     end
 
     context 'with keep_default_active_record_log not set' do
@@ -73,6 +74,45 @@ RSpec.describe Lograge::ActiveRecordLogSubscriber do
       it 'apply filter to sql payload' do
         log_subscriber.sql(event)
         expect(query_filter).to have_received(:call).with('foo')
+      end
+    end
+
+    context 'with default name denylist' do
+      before do
+        allow(Rails).to receive_message_chain('application.config.lograge_sql.keep_default_active_record_log') { true }
+      end
+
+      context 'with SCHEMA as name' do
+        before do
+          allow(event).to receive(:payload).and_return({ name: 'SCHEMA' })
+        end
+
+        it 'does not store the event' do
+          log_subscriber.sql(event)
+          expect(Lograge::Sql.store[:lograge_sql_queries]).to be_nil
+        end
+      end
+
+      context 'with name starting with SCHEMA' do
+        before do
+          allow(event).to receive(:payload).and_return({ name: 'SCHEMA foo' })
+        end
+
+        it 'stores the event' do
+          log_subscriber.sql(event)
+          expect(Lograge::Sql.store[:lograge_sql_queries]).not_to be_nil
+        end
+      end
+
+      context 'with name starting with SolidCable::' do
+        before do
+          allow(event).to receive(:payload).and_return({ name: 'SolidCable::Message Maximum' })
+        end
+
+        it 'does not store the event' do
+          log_subscriber.sql(event)
+          expect(Lograge::Sql.store[:lograge_sql_queries]).to be_nil
+        end
       end
     end
   end
