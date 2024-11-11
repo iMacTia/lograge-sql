@@ -15,6 +15,8 @@ module Lograge
       attr_accessor :min_duration_ms
       # Filter SQL query
       attr_accessor :query_filter
+      # Filter wich SQL queries to store
+      attr_accessor :query_name_denylist
 
       # Initialise configuration with fallback to default values
       def setup(config)
@@ -22,6 +24,7 @@ module Lograge
         Lograge::Sql.extract_event   = config.extract_event   || default_extract_event
         Lograge::Sql.min_duration_ms = config.min_duration_ms || 0
         Lograge::Sql.query_filter    = config.query_filter
+        Lograge::Sql.query_name_denylist = config.query_name_denylist || [/\ASCHEMA\z/, /\ASolidCable::/]
 
         # Disable existing ActiveRecord logging
         unsubscribe_log_subscribers unless config.keep_default_active_record_log
