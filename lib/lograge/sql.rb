@@ -19,7 +19,7 @@ module Lograge
       attr_accessor :query_name_denylist
 
       # Initialise configuration with fallback to default values
-      def setup(config)
+      def setup(config) # rubocop:disable Metrics/AbcSize
         Lograge::Sql.formatter       = config.formatter       || default_formatter
         Lograge::Sql.extract_event   = config.extract_event   || default_extract_event
         Lograge::Sql.min_duration_ms = config.min_duration_ms || 0
