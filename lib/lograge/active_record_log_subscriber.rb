@@ -33,7 +33,7 @@ module Lograge
     end
 
     def valid?(event)
-      return false if event.payload[:name]&.match?(Regexp.union(Lograge::Sql.query_name_denylist))
+      return false if event.payload[:name]&.match?(Lograge::Sql.query_name_denylist)
 
       # Only store SQL events if `event.duration` is greater than the configured +min_duration+
       # No need to check if +min_duration+ is present before as it defaults to 0
