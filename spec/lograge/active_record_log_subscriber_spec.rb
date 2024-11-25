@@ -12,7 +12,7 @@ RSpec.describe Lograge::ActiveRecordLogSubscriber do
       stub_const('ActiveRecord::RuntimeRegistry', ar_runtime_registry)
       Lograge::Sql.extract_event = proc {}
       Lograge::Sql.store.clear
-      Lograge::Sql.query_name_denylist = [/\ASCHEMA\z/, /\ASolidCable::/]
+      Lograge::Sql.query_name_denylist = Regexp.union([/\ASCHEMA\z/, /\ASolidCable::/])
     end
 
     context 'with keep_default_active_record_log not set' do
