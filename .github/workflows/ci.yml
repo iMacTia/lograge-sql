@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@ab177d40ee5483edb974554986f56b33477e21d0
         with:
           ruby-version: 2.7
           bundler-cache: true # 'bundle install' and cache
@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@ab177d40ee5483edb974554986f56b33477e21d0
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true # 'bundle install' and cache
