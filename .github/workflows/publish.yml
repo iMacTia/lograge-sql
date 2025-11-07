@@ -9,15 +9,18 @@ jobs:
     name: Publish to Rubygems
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    permissions:
+      contents: write
+      id-token: write
 
-      - name: Set up Ruby 2.7
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Ruby 3.x
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          bundler-cache: true
+          ruby-version: 3
 
       - name: Publish to RubyGems
-        uses: dawidd6/action-publish-gem@v1
-        with:
-          api_key: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
+        uses: rubygems/release-gem@v1
