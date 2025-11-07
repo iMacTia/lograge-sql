@@ -10,6 +10,7 @@ install_if -> { ENV.fetch('RAILS_VERSION', nil) } do
 end
 
 group :development do
+  gem 'rake', '>= 12.3.3'
   gem 'rspec', '~> 3.0'
   gem 'simplecov', '~> 0.12'
 end
