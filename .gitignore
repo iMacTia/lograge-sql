@@ -6,6 +6,7 @@
 /spec/reports/
 /tmp/
 .idea
+mise.toml
 
 ## BUNDLER
 *.gem

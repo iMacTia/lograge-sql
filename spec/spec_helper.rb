@@ -5,6 +5,7 @@ SimpleCov.start
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'delegate'
+require 'logger'
 require 'lograge'
 require 'lograge/sql'
 require 'lograge/active_record_log_subscriber'

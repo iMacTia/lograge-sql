@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/iMacTia/lograge-sql'
   spec.license       = 'MIT'
 
+  spec.metadata['rubygems_mfa_required'] = 'true'
   spec.files = Dir['lib/**/*', 'Rakefile', 'README.md']
   spec.require_paths = ['lib']
 
@@ -22,6 +23,4 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activerecord', '>= 5', '< 8.2'
   spec.add_dependency 'lograge', '~> 0.11'
-
-  spec.add_development_dependency 'rake', '>= 12.3.3'
 end
