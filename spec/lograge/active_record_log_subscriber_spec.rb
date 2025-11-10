@@ -20,10 +20,31 @@ RSpec.describe Lograge::ActiveRecordLogSubscriber do
         allow(Rails).to receive_message_chain('application.config.lograge_sql.keep_default_active_record_log') { nil }
       end
 
-      it 'adds duration to ActiveRecord::RuntimeRegistry sql_runtime' do
-        expect(ar_runtime_registry).to receive(:sql_runtime=).with(120.0)
+      context 'when ActiveRecord::RuntimeRegistry responds to :stats' do
+        let(:stats) { double('stats', sql_runtime: 100.0) }
 
-        log_subscriber.sql(event)
+        before do
+          allow(ar_runtime_registry).to receive(:respond_to?).with(:stats).and_return(true)
+          allow(ar_runtime_registry).to receive(:stats).and_return(stats)
+        end
+
+        it 'adds duration to ActiveRecord::RuntimeRegistry.stats.sql_runtime' do
+          expect(stats).to receive(:sql_runtime=).with(120.0)
+
+          log_subscriber.sql(event)
+        end
+      end
+
+      context 'when ActiveRecord::RuntimeRegistry does not respond to :stats' do
+        before do
+          allow(ar_runtime_registry).to receive(:respond_to?).with(:stats).and_return(false)
+        end
+
+        it 'adds duration to ActiveRecord::RuntimeRegistry sql_runtime' do
+          expect(ar_runtime_registry).to receive(:sql_runtime=).with(120.0)
+
+          log_subscriber.sql(event)
+        end
       end
     end
 
