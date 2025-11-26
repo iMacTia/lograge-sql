@@ -3,6 +3,6 @@
 module Lograge
   module Sql
     # Gem version
-    VERSION = '2.6.0'
+    VERSION = '2.6.1'
   end
 end
